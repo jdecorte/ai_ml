@@ -26,24 +26,14 @@ def MaxVoltage(C,V_tot):
 
 def main(argv):
     samples = np.random.normal(loc=avg,scale=sigma,size=(samplesize,condensators))
-    n = 0
+
     V_max = np.empty((0),dtype=float)
     for sample in samples:
-
-        if (min(sample) >= 13.5) & (max(sample) <= 19.5):
-            n += 1
-            V_max = np.r_[V_max,[MaxVoltage(sample,V_tot)]]
-        else:
-            print(min(sample),max(sample))
+        V_max = np.r_[V_max,[MaxVoltage(sample,V_tot)]]
 
     V_max = np.sort(V_max)    
 
-    # V_max_threshold = [V_max > threshold]
-
-    print(f'Totaal aantal samples van {condensators} condensatoren weerhouden: {n}')
-
-    print(f'Percentage above threshold: {(V_max > threshold).sum()*100/n} %')
-    # print(V_max)
+    print(f'Percentage above threshold: {(V_max > threshold).sum()*100/samplesize} %')
 
     return    
 
